@@ -22,8 +22,8 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 | # | Lesson | Status |
 | --- | --- | --- |
 | 1 | How AI apps get hacked (OWASP Top 10 for LLMs) | ✅ Done |
-| 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) | 🟡 In progress |
-| 3 | Containers (Docker) | ⬜ |
+| 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) |✅ Done |
+| 3 | Containers (Docker) | ✅ Done |
 | 4 | Security scanners in the pipeline | ⬜ |
 | 5 | Cloud (AWS) | ⬜ |
 | 6 | Infrastructure as Code (Terraform) | ⬜ |
