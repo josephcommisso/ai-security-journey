@@ -22,9 +22,9 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 | # | Lesson | Status |
 | --- | --- | --- |
 | 1 | How AI apps get hacked (OWASP Top 10 for LLMs) | ✅ Done |
-| 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) |✅ Done |
+| 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) | ✅ Done |
 | 3 | Containers (Docker) | ✅ Done |
-| 4 | Security scanners in the pipeline | ⬜ |
+| 4 | Security scanners in the pipeline | 🟡 In progress |
 | 5 | Cloud (AWS) | ⬜ |
 | 6 | Infrastructure as Code (Terraform) | ⬜ |
 | 7 | Kubernetes & ECS | ⬜ |
@@ -64,13 +64,45 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 
 **Key takeaway:** An LLM can't reliably tell instructions from data, so you have to assume it can be tricked — and limit what a tricked AI can reach.
 
-### Lesson 2 — Git, GitHub & CI/CD 🟡
+### Lesson 2 — Git, GitHub & CI/CD ✅
 
 **What it is:** A CI/CD pipeline automatically checks every code change (CI) and ships it to production if it passes (CD). It's the best place to add security checks before anything reaches customers.
 
-**Learned so far:** repos, commits, branches, pull requests, workflows → jobs → steps, runners, GitHub Secrets, secret scanning vs. push protection, Dependabot vs. CodeQL, branch protection, and why pipelines themselves are targets (Codecov 2021, tj-actions 2025).
+**What I learned:** repos, commits, branches, pull requests, workflows → jobs → steps, runners, GitHub Secrets, secret scanning vs. push protection, Dependabot vs. CodeQL, branch protection, and why pipelines themselves are targets (Codecov 2021, tj-actions 2025).
 
-**Next:** build my first GitHub Actions workflow in this repo.
+**What I built:** my first GitHub Actions pipeline ([`.github/workflows/hello.yml`](.github/workflows/hello.yml)). It runs automatically on every push, checks out the code on a fresh runner, and reports a green check.
+
+### Lesson 3 — Containers (Docker) ✅
+
+**What it is:** A container packs an app plus everything it needs, so it runs the same on any computer. Containers share the host's kernel, which makes them fast — and makes container security important.
+
+**What I built:** A Flask web app in a hardened container ([`lesson-3-docker/`](lesson-3-docker/)) — slim pinned base image, only the files it needs, and a non-root user. Verified with `docker exec my-app whoami` → `appuser`.
+
+**Security review:** [Leaky Box](lesson-3-docker/leaky-box/) — found and fixed a container running as root with a secret baked into its image layers.
+
+**Container security checklist (my "5 S's"):**
+- **Source** — use official or verified images
+- **Stale** — keep base images updated and scan them
+- **Secrets** — never bake keys into an image (layers keep them)
+- **Superuser** — don't run as root
+- **Separation** — avoid `--privileged`; keep the walls up
+
+### Lesson 4 — Security scanners in the pipeline 🟡
+
+**What it is:** Automatic security checks that run on every code change. My memory trick for the five guards: **Keys** (secret scanning), **Code** (SAST), **Parts** (SCA), **Box** (container scanning), **Brain** (AI code review).
+
+**What I built so far:** Added Gitleaks secret scanning to my pipeline ([`.github/workflows/hello.yml`](.github/workflows/hello.yml)).
+
+**Testing my control:** I planted a fake API key to prove the scanner actually works:
+- ❌ Pipeline turned red — Gitleaks flagged a `generic-api-key` on line 2 of `test-leak/fake_config.py`
+- ✅ Deleted the file — pipeline went back to green
+
+**What I learned:**
+- A green check can mean "nothing found" *or* "scanner broken" — always test your controls.
+- Pipeline scanners run **after** code is pushed; push protection blocks **before**. Branch protection plus pull requests make a red X block the merge.
+- Deleting a secret doesn't remove it from Git history — **rotate the key first**, then clean up.
+
+**Next:** container scanning (Trivy) and code scanning (Semgrep).
 
 ---
 
