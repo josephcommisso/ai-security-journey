@@ -1,0 +1,12 @@
+name: Hello pipeline
+on: push
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Grab the code
+        uses: actions/checkout@v4
+      - name: Say hello
+        run: echo "pipeline works"
+      - name: Show the files the robot can see
+        run: ls
