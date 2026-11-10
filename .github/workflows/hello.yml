@@ -1,12 +1,16 @@
-name: Hello pipeline
+name: Security pipeline
 on: push
 jobs:
-  hello:
+  security:
     runs-on: ubuntu-latest
     steps:
       - name: Grab the code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Say hello
         run: echo "pipeline works"
-      - name: Show the files the robot can see
-        run: ls
+      - name: Scan for leaked secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
