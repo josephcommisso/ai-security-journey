@@ -151,7 +151,7 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 ## 🚧 Projects (coming soon)
 
 1. **Secure AI App Pipeline** — an AI chatbot wrapped in a GitHub Actions DevSecOps pipeline: secret, code, dependency, container, and Terraform scanning, plus automated AI red-teaming before every deploy.
-2. **AI SOC Triage Agent** — an n8n agent that triages security alerts, then gets attacked, defended with guardrails and least privilege, and mapped to the EU AI Act and NIST AI RMF.
+2. **AgentGate** — a Python gateway that sits between an AI agent and its tools: it inspects every tool call, gives each agent its own identity and minimal access, holds risky actions for human approval, flags prompt injection and data leaving, and gets red-teamed with the attacks I beat in Lakera.
 
 ## 🧰 Tools (all free)
 
