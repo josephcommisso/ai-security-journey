@@ -14,3 +14,10 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Scan Dockerfiles for risky settings
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.35.0
+        with:
+          scan-type: config
+          scan-ref: lesson-3-docker
+          exit-code: '1'
+          severity: HIGH,CRITICAL
