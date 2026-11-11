@@ -25,15 +25,16 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 | 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) | ✅ Done |
 | 3 | Containers (Docker) | ✅ Done |
 | 4 | Security scanners in the pipeline | 🟡 In progress |
-| 5 | Cloud (AWS) | ⬜ |
-| 6 | Infrastructure as Code (Terraform) | ⬜ |
-| 7 | Kubernetes & ECS | ⬜ |
-| 8 | Data platform security (Databricks / Snowflake) | ⬜ |
-| 9 | GRC & the EU AI Act | ⬜ |
-| 10 | Building AI agents (n8n) | ⬜ |
-| 11 | Mapping the AI attack surface | ⬜ |
-| 12 | Attacking AI (threat modeling & red teaming) | ⬜ |
-| 13 | Defending AI (guardrails & limited agents) | ⬜ |
+| 5 | Python for AI security: build an AI attack detector *(added from real job postings)* | ⬜ |
+| 6 | Cloud (AWS) | ⬜ |
+| 7 | Infrastructure as Code (Terraform) | ⬜ |
+| 8 | Kubernetes & ECS | ⬜ |
+| 9 | Data platform security (Databricks / Snowflake) | ⬜ |
+| 10 | GRC & the EU AI Act | ⬜ |
+| 11 | Building AI agents (n8n) | ⬜ |
+| 12 | Mapping the AI attack surface | ⬜ |
+| 13 | Attacking AI (threat modeling & red teaming) | ⬜ |
+| 14 | Defending AI (guardrails & limited agents) | ⬜ |
 
 ---
 
@@ -127,7 +128,7 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 
 ## 🧰 Tools (all free)
 
-GitHub Actions · Docker · Ollama · Gemini API (free tier) · Gitleaks · Semgrep · Trivy · Checkov · Terraform · kind · n8n · garak · promptfoo · LLM Guard · CISO Assistant · Databricks Free Edition
+GitHub Actions · Docker · Python · Ollama · Gemini API (free tier) · Gitleaks · Semgrep · Trivy · Checkov · Terraform · kind · n8n · garak · promptfoo · LLM Guard · CISO Assistant · Databricks Free Edition
 
 ---
 
