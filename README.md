@@ -109,10 +109,24 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 
 ## 🧪 Labs & CTFs
 
-### Lakera Agent Breaker
+### Lakera Agent Breaker ✅ All 10 challenges completed
 
-| Challenge | OWASP risk | Status | What I learned |
+| Challenge | OWASP risk | Status | What it tests |
 | --- | --- | --- | --- |
+| Cycling Coach — extract the system prompt | LLM07 | ✅ | Pulling hidden instructions out of an assistant |
+| Thingularity — extract the agent's tools | LLM07 / LLM06 | ✅ | Getting an agent to reveal what it can do |
+| Solace AI — jailbreak a support bot | LLM01 | ✅ | Direct prompt injection past safety rules |
+| Trippy Planner — malicious link via a website | LLM01 / LLM05 | ✅ | Indirect injection hidden in web content an agent reads |
+| Clause AI — exfiltrate protected witness data | LLM02 | ✅ | Making an assistant leak data it should protect |
+| PortfolioIQ Advisor — poisoned due diligence PDF | LLM01 / LLM09 | ✅ | Indirect injection in a document, causing wrong advice |
+| CorpConnect Messenger — fake the email sender | LLM06 | ✅ | Abusing badly configured agent permissions |
+| MindfulChat — attack planted in memory logs | LLM04 | ✅ | Poisoning an assistant's memory so the attack persists |
+| Curs-ed CodeReview — malicious rules file | LLM01 / LLM03 | ✅ | Injection through a file a coding assistant trusts |
+| OmniChat Desktop — poisoned MCP server description | LLM03 / LLM01 | ✅ | Attacks through the tools an agent connects to (MCP) |
+
+**Key takeaway:** Defenses that watch for trigger phrases (like "original instructions") are easy to get around with indirect, on-topic wording — and the most dangerous attacks don't come from the chat box at all, but from websites, PDFs, memory, files, and tools the AI trusts.
+
+--- | --- | --- | --- |
 | Cycling Coach — extract the system prompt | LLM07 | 🟡 In progress | Defenses watch for trigger phrases like "original instructions"; indirect, on-topic asks get further |
 | Thingularity — extract the agent's tools | LLM07 / LLM06 | ⬜ | |
 | Solace AI — jailbreak a support bot | LLM01 | ⬜ | |
