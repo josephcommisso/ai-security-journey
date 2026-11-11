@@ -21,3 +21,5 @@ jobs:
           scan-ref: lesson-3-docker
           exit-code: '1'
           severity: HIGH,CRITICAL
+          # Dockerfile.bad is intentionally insecure (Leaky Box "before" example) - accepted risk
+          skip-files: lesson-3-docker/leaky-box/Dockerfile.bad
