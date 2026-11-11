@@ -23,3 +23,7 @@ jobs:
           severity: HIGH,CRITICAL
           # Dockerfile.bad is intentionally insecure (Leaky Box "before" example) - accepted risk
           skip-files: lesson-3-docker/leaky-box/Dockerfile.bad
+      - name: Scan my code for risky patterns
+        run: |
+          pip install semgrep==1.185.0
+          semgrep scan --config p/python --error
