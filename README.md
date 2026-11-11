@@ -24,7 +24,7 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 | 1 | How AI apps get hacked (OWASP Top 10 for LLMs) | ✅ Done |
 | 2 | Git, GitHub & CI/CD pipelines (GitHub Actions) | ✅ Done |
 | 3 | Containers (Docker) | ✅ Done |
-| 4 | Security scanners in the pipeline | 🟡 In progress |
+| 4 | Security scanners in the pipeline | ✅ Done |
 | 5 | Python for AI security: build an AI attack detector *(added from real job postings)* | ⬜ |
 | 6 | Cloud (AWS) | ⬜ |
 | 7 | Infrastructure as Code (Terraform) | ⬜ |
@@ -88,22 +88,35 @@ Companies are shipping AI chatbots and agents faster than they can secure them. 
 - **Superuser** — don't run as root
 - **Separation** — avoid `--privileged`; keep the walls up
 
-### Lesson 4 — Security scanners in the pipeline 🟡
+### Lesson 4 — Security scanners in the pipeline ✅
 
 **What it is:** Automatic security checks that run on every code change. My memory trick for the five guards: **Keys** (secret scanning), **Code** (SAST), **Parts** (SCA), **Box** (container scanning), **Brain** (AI code review).
 
-**What I built so far:** Added Gitleaks secret scanning to my pipeline ([`.github/workflows/hello.yml`](.github/workflows/hello.yml)).
+**What I built:** A security pipeline ([`.github/workflows/hello.yml`](.github/workflows/hello.yml)) that runs three scanners on every push:
 
-**Testing my control:** I planted a fake API key to prove the scanner actually works:
-- ❌ Pipeline turned red — Gitleaks flagged a `generic-api-key` on line 2 of `test-leak/fake_config.py`
-- ✅ Deleted the file — pipeline went back to green
+| Guard | Tool | What it checks |
+| --- | --- | --- |
+| 🔑 Keys | Gitleaks | Leaked passwords and API keys in new commits |
+| 🧳 Box | Trivy | Risky settings in my Dockerfiles |
+| 📝 Code | Semgrep | Risky patterns in my Python code |
+
+**Testing my controls:**
+- Planted a fake API key → ❌ Gitleaks flagged it on the exact line → deleted it → ✅ green
+- Trivy automatically caught **both** Leaky Box problems in `Dockerfile.bad`: running as root and a secret baked into `ENV`
+- Semgrep flagged `host="0.0.0.0"` in both Flask apps
+
+**Handling findings like a security team:**
+- `Dockerfile.bad` is intentionally insecure (it's my Leaky Box "before" example), so I skipped it in Trivy with a written reason instead of deleting it or living with a pipeline that's always red.
+- `host="0.0.0.0"` is a **false positive in context** — the apps run inside containers, where it's required for Docker's port mapping — so I added a `nosemgrep` exception for that one rule on that one line, with the reason in a comment.
+
+**Supply-chain safety:** In March 2026, attackers hijacked Trivy's GitHub Action by moving its version tags to malware. So I pinned Trivy to an exact **commit SHA** (a fingerprint that can't be moved) and pinned Semgrep to an exact version.
 
 **What I learned:**
 - A green check can mean "nothing found" *or* "scanner broken" — always test your controls.
+- **No single scanner catches everything.** Gitleaks missed the Leaky Box secret (it was in an older commit and didn't look random enough), but Trivy caught it by checking the setting instead of the value. Layers cover blind spots.
 - Pipeline scanners run **after** code is pushed; push protection blocks **before**. Branch protection plus pull requests make a red X block the merge.
-- Deleting a secret doesn't remove it from Git history — **rotate the key first**, then clean up.
-
-**Next:** container scanning (Trivy) and code scanning (Semgrep).
+- Deleting a secret doesn't remove it from Git history — **rotate the key first**.
+- A pipeline that's always red gets ignored (alert fatigue). Documented exceptions keep it meaningful.
 
 ---
 
